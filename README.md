@@ -2,7 +2,6 @@
 
 2.) If you want to drive this from Home Assistant, you can add this code into configuration.yaml:
 
-
 mqtt:
 	light:
  		name: "Lix's Tildagon"
