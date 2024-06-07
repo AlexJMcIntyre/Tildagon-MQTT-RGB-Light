@@ -8,10 +8,10 @@ command_topic = "tildagon1/switch"
 brightness_command_topic = "tildagon1/brightness/set"
 rgb_command_topic = "tildagon1/color/set"
 
-r = 0
-g = 0
-b = 0
-brightness = 0
+r = .5
+g = .5
+b = .5
+brightness = .5
 status = True
 
 def sub(topic, msg):
