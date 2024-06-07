@@ -4,45 +4,44 @@ import simple_tildagon as st
 from events.input import Buttons, BUTTON_TYPES
 from umqtt.simple import MQTTClient
 
-
-command_topic= "attic/tildagon1/switch"
-brightness_state_topic= "attic/tildagon1/brightness"
-brightness_command_topic= "attic/tildagon1/brightness/set"
-rgb_state_topic= "attic/tildagon1/color"
-rgb_command_topic= "attic/tildagon1/color/set"
-effect_state_topic= "attic/tildagon1/effect"
-effect_command_topic= "attic/tildagon1/effect/set"
-
+command_topic = "tildagon1/switch"
+brightness_command_topic = "tildagon1/brightness/set"
+rgb_command_topic = "tildagon1/color/set"
 
 r = 0
 g = 0
 b = 0
 brightness = 0
-stopic = ""
-smsg = ""
+status = True
 
 def sub(topic, msg):
-    global r, g, b, brightness, stopic, smsg
+    global r, g, b, brightness, status
+
     stopic = topic.decode("utf-8")
     smsg = msg.decode ("utf-8")
     
     if stopic == rgb_command_topic:
         tr,tg,tb = (smsg.split(","))
-        r = int(tr)
-        g = int(tg)
-        b = int(tb)
+        r = float(tr)/255
+        g = float(tg)/255
+        b = float(tb)/255
     elif stopic == brightness_command_topic:
-        brightness = int(smsg)
-    
-
-class Lix_MQTT(app.App):
+        brightness = float(smsg)/255
+    elif stopic == command_topic:
+        if smsg == "ON":
+            status = True
+        else:
+            status = False 
+      
+class MQTT_RGB(app.App):
     def __init__(self):
+        print("Loading")
         self.button_states = Buttons(self)
-        self.client = MQTTClient(f'LixTildagon', "homeassistant.local", 1883, "mqttuser", "mqttpass")
+        self.client = MQTTClient(f'Tildagon1', "homeassistant.local", 1883, "mqttuser", "mqttpass")
         self.client.set_callback(sub)
         self.client.connect()
-        self.client.subscribe("attic/tildagon1/#")
-    
+        self.client.subscribe("tildagon1/#")
+
     def update(self, delta):
         if self.button_states.get(BUTTON_TYPES["CANCEL"]):
             # The button_states do not update while you are in the background.
@@ -52,19 +51,23 @@ class Lix_MQTT(app.App):
             self.minimise()
         self.client.check_msg()
     
-
-    
     def draw(self, ctx):
-        global r, g, b, brightness
+        global r, g, b, brightness, status
         ctx.font_size = 10
         ctx.save()
-        ctx.rgb(r*brightness/65025,g*brightness/65025,b*brightness/65025).rectangle(-120,-120,240,240).fill()
-        ctx.rgb(0,0,0).move_to(-80,-10).text(stopic)
-        ctx.rgb(0,0,0).move_to(-80,10).text(smsg)
+        if status:
+            # screen brightness is 0 - 1
+            ctx.rgb(r * brightness,g * brightness,b * brightness).rectangle(-120,-120,240,240).fill()
+             # led brightness is 0 - 255
+            for i in range (1,13):
+                st.led.set(i, [int(r * brightness * 255),int(g * brightness * 255),int(b * brightness * 255)])
+        else:
+            # screen brightness is 0 - 1
+            ctx.rgb(0, 0 ,0).rectangle(-120,-120,240,240).fill()
+             # led brightness is 0 - 255
+            for i in range (1,13):
+                st.led.set(i,[0,0,0])
         ctx.restore()
-        for i in range (1,13):
-            st.led.set(i, [int(r*brightness/255),int(g*brightness/255),int(b*brightness/255)])
-        
 
-__app_export__ = Lix_MQTT
+__app_export__ = MQTT_RGB
 
