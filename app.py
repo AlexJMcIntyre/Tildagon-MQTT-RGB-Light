@@ -41,7 +41,7 @@ class MQTT_RGB(app.App):
         print("Loading")
         self.button_states = Buttons(self)
         #Update the following line with your own details. 
-        self.client = MQTTClient(f'Tildagon1', 'homeassistant.local', 1883, 'mqttuser', 'mqttpass')
+        self.client = MQTTClient('Tildagon1', 'homeassistant.local', 1883, 'mqttuser', 'mqttpass')
         self.client.set_callback(sub)
         self.client.connect()
         self.client.subscribe("tildagon1/#")
