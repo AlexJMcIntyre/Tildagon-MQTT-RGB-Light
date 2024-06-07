@@ -1,0 +1,9 @@
+# add this code into your configuration.yaml
+
+mqtt:
+	light:
+ 		name: "Tildagon"
+		state_topic: "tildagon1"
+		command_topic: "tildagon1/switch"
+		brightness_command_topic: "tildagon1/brightness/set"
+		rgb_command_topic: "tildagon1/color/set"
