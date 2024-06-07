@@ -1,5 +1,5 @@
 Turn your EMF Tildagon badge into a RGB light, hooked into your Home Assistant server (or other MQTT solution!) 
-This process is a little bit involved
+This process is a little bit involved and a bit hacky, sorry!
 
 1.) You need to install the umqtt.simple library onto your badge. I used Thonny; once you've got the badge connected, look under tools > Manage Packages
 
