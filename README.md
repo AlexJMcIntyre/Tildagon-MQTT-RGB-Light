@@ -19,7 +19,7 @@ You will need a way to copy code onto your Tildagon badge such as [Thonny](https
 	 
   - creating a `/apps/MQTT_RGB/` directory on badge 
   
-  - coping `app.py` and metadata.json into the `/apps/MQTT_RGB/` directory
+  - coping `app.py` and `metadata.json` into the `/apps/MQTT_RGB/` directory
 
 4. In `app.py`, for the line:\
 `self.client = MQTTClient(f'Tildagon1', 'homeassistant.local', 1883, 'mqttuser', 'mqttpass')`\
