@@ -1,8 +1,11 @@
 import app
 import simple_tildagon as st
 
+from system.eventbus import eventbus
+from system.patterndisplay.events import *
 from events.input import Buttons, BUTTON_TYPES
 from umqtt.simple import MQTTClient
+
 
 command_topic = "tildagon1/switch"
 brightness_command_topic = "tildagon1/brightness/set"
@@ -38,12 +41,14 @@ class MQTT_RGB(app.App):
         print("Loading")
         self.button_states = Buttons(self)
         #Update the following line with your own details. 
-        self.client = MQTTClient(f'Tildagon1', "homeassistant.local", 1883, "mqttuser", "mqttpass")
+        self.client = MQTTClient(f'Tildagon1', 'homeassistant.local', 1883, 'mqttuser', 'mqttpass')
         self.client.set_callback(sub)
         self.client.connect()
         self.client.subscribe("tildagon1/#")
+        
 
     def update(self, delta):
+        eventbus.emit(PatternDisable())
         if self.button_states.get(BUTTON_TYPES["CANCEL"]):
             # The button_states do not update while you are in the background.
             # Calling clear() ensures the next time you open the app, it stays open.
