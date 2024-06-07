@@ -6,8 +6,10 @@ This process is a little bit involved and a bit hacky, sorry!
 2.) If you want to drive this from Home Assistant, you can add the config from https://github.com/AlexJMcIntyre/Tildagon-MQTT-RGB-Light/blob/main/Home%20Assistant%20Config into HA's configuration.yaml. Reload Home Assistant and check this new Tildagon entity exists. 
 
 3.) Becasue of these requirements, I've not added this app to the badge app store. Instead you can install it manually by:
-	 -creating a /apps/MQTT_RGB/ directory on badge 
-	 -copy app.py and metadata.json into the /apps/MQTT_RGB/ directory
+	 
+  -creating a /apps/MQTT_RGB/ directory on badge 
+  
+  -copy app.py and metadata.json into the /apps/MQTT_RGB/ directory
 
 4.) In app.py, for the line:
 
