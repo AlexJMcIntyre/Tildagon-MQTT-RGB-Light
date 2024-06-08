@@ -1,7 +1,7 @@
 ## Tildagon MMQT RBG Light
 
 Turn your EMF Tildagon badge into a RGB light, hooked into your Home Assistant server (or other MQTT solution!) 
-This process is a little bit involved and a bit hacky, sorry!
+This process is a little bit involved than installing an app from the app store, and it's a bit hacky, sorry!
 
 ### Getting Started
 
