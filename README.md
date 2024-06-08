@@ -23,7 +23,7 @@ You will need a way to copy code onto your Tildagon badge such as [Thonny](https
 
 4. In `app.py`, for the line:\
 `self.client = MQTTClient(f'Tildagon1', 'homeassistant.local', 1883, 'mqttuser', 'mqttpass')`\
-Replace `homeassistant.local` with the address of your home assistant server, `1883` with your port (if you're not running the default), `mqttuser` and `mqttpass` with a valid username and password for your MQTT broker
+Replace `homeassistant.local` with the address of your home assistant server, `1883` with your MQTT broker port (if you're not running the default), `mqttuser` and `mqttpass` with a valid username and password for your broker
  
 5. Save your changes, and reboop your badge.
 
